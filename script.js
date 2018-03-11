@@ -5,10 +5,18 @@ function createDeck() {
   let deck = [];
   for (i=0; i<characters.length; i++) {
     for (j=0; j<cards.length; j++) {
-      deck.push(characters[i] + ' of ' + cards[j] );
+      let card = {
+        suit: cards[j],
+        value: characters[i]
+      };
+      deck.push(card);
     };
   };
   return deck;
+};
+
+function getCardString(card) {
+  return card.suit + ' of ' + card.value;
 };
 
 function getNextCard() {
@@ -21,5 +29,5 @@ let playerCards = [getNextCard(), getNextCard()];
 
 console.log('Welcome to Blackjack!');
 console.log('You are dealt: ');
-console.log(playerCards[0]);
-console.log(playerCards[1]);
+console.log(getCardString( playerCards[0] ));
+console.log(getCardString( playerCards[1] ));
