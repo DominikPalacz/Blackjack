@@ -1,21 +1,44 @@
-let characters = ['clubs ♣', 'diamonds ♦', 'hearts ♥', 'spades ♠']; // zmienna z kolorami
-let cards = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King']; //// zmienna z znakami
+// Card vaiables (zmienna z kolorami oraz zmienna z znakami)
+let characters = ['clubs ♣', 'diamonds ♦', 'hearts ♥', 'spades ♠']; 
+let cards = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King'];
 
-// zmienne pobierajace zawartosc paragrafu i przyciskow metoda getElementById wg. ich id="tak jak nazwane"
+// DOM variables (zmienne pobierajace zawartosc paragrafu i przyciskow metoda getElementById wg. ich id="tak jak nazwane")
 let textArea = document.getElementById('text-area'),
     newGameButton = document.getElementById('new-game-button'),
     hitButton = document.getElementById('hit-button'),
     stayButton = document.getElementById('stay-button');
 
+// Game variables
+
+let gameStarted = false,
+    gameOver = false,
+    playerWon = false,
+    dealerCards = [],
+    playerCards = [],
+    dealerScore = 0,
+    playerScore = 0,
+    deck = [];
+
 hitButton.style.display = 'none'; // ukrycie widocznosci przycisku
 stayButton.style.display = 'none'; // ukrycie widocznosci przycisku
+showStatus();
 
 // event wywolany po kliknieciu na przycisk 'new-game-button'
 newGameButton.addEventListener('click', function() {
-  textArea.innerText = 'Start'; // wyswietlenie tekstu 
+  gameStarted = true;
+  gameOver = false;
+  playerWon = false;
+  
+  // zmienna z talia kart
+  let deck = createDeck();
+  dealerCards = [getNextCard(), getNextCard()];
+  playerCards = [getNextCard(), getNextCard()];
+  
+  
   newGameButton.style.display = 'none'; // ukrycie widocznosci przycisku
   hitButton.style.display = 'inline'; // pokazanie widocznosci przycisku
   stayButton.style.display = 'inline'; // pokazanie widocznosci przycisku
+  showStatus();
 });
 
 // funkcja tworzaca talie 52 kart
@@ -43,13 +66,9 @@ function getNextCard() {
   return deck.shift()
 };
 
-// zmienna z talia kart
-let deck = createDeck();
-
-// karty gracza
-let playerCards = [getNextCard(), getNextCard()];
-
-console.log('Welcome to Blackjack!');
-console.log('You are dealt: ');
-console.log(getCardString( playerCards[0] ));
-console.log(getCardString( playerCards[1] ));
+function showStatus() {
+  if (!gameStarted) {
+    textArea.innerText = 'Welcome to Blackjack!';
+    return;
+  }
+};
