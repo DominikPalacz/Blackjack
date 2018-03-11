@@ -81,7 +81,23 @@ function showStatus() {
     textArea.innerText = 'Welcome to Blackjack!';
     return;
   }
-  for (i=0; i<deck.length; i++) {
-    textArea.innerText += '\n' + getCardString(deck[i]);
-  }
+  
+  let dealerCardString = '';
+  for ( i = 0; i < dealerCards.length; i++) {
+  dealerCardString += getCardString(dealerCards[i]) + '\n';
+}
+
+  let playerCardString = '';
+  for ( i = 0; i < playerCards.length; i++) {
+  playerCardString += getCardString(playerCards[i]) + '\n';
+}
+  
+textArea.innerText =
+  'Deler has:\n' +
+  dealerCardString +
+  '(score: ' + dealerScore + ') \n \n' +
+  
+  'Player has:\n' +
+  playerCardString +
+  '(score: ' + playerScore + ') \n \n';
 };
