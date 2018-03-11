@@ -42,6 +42,20 @@ newGameButton.addEventListener('click', function() {
   showStatus();
 });
 
+// Event implementacja przycisku hit
+hitButton.addEventListener('click', function() {
+  playerCards.push(getNextCard());
+  checkGameOver();
+  showStatus();
+});
+
+// Event implementacja przycisku stay
+stayButton.addEventListener('click', function() {
+  gameOver = true;
+  checkGameOver();
+   showStatus();
+});
+
 // funkcja tworzaca talie 52 kart
 function createDeck() {
   let deck = [];
@@ -121,6 +135,10 @@ function updateScores() {
   dealerScore = getScore(dealerCards);
   playerScore = getScore(playerCards);
 }
+
+function checkGameOver() {
+  // TO DO
+};
 
 function showStatus() {
   if (!gameStarted) {
