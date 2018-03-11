@@ -158,9 +158,8 @@ function checkGameOver() {
     playerWon = true;
     gameOver = true;
   }
-  else if (gameOver) {
-    
-    if (playerScore > dealerScore) {
+  else if (gameOver) { 
+   if (playerScore > dealerScore && playerScore !== dealerScore) {
       playerWon = true;
     }
     else {
@@ -196,8 +195,11 @@ textArea.innerText =
   playerCardString +
   '(score: ' + playerScore + ') \n \n';
   
-if (gameOver) {
-  if (playerWon) {
+if (gameOver){
+  if (playerScore == dealerScore) {
+     textArea.innerText += "DRAW";
+  }
+  else if (playerWon) {
     textArea.innerText += "YOU WON!";
   }
   else {
