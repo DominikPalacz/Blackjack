@@ -1,6 +1,6 @@
 // Card vaiables (zmienna z kolorami oraz zmienna z znakami)
-let characters = ['clubs ♣', 'diamonds ♦', 'hearts ♥', 'spades ♠']; 
-let cards = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King'];
+let suits = ['clubs', 'diamonds', 'hearts', 'spades']; 
+let values = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King'];
 
 // DOM variables (zmienne pobierajace zawartosc paragrafu i przyciskow metoda getElementById wg. ich id="tak jak nazwane")
 let textArea = document.getElementById('text-area'),
@@ -30,7 +30,8 @@ newGameButton.addEventListener('click', function() {
   playerWon = false;
   
   // zmienna z talia kart
-  let deck = createDeck();
+  deck = createDeck();
+  shuffleDeck(deck);
   dealerCards = [getNextCard(), getNextCard()];
   playerCards = [getNextCard(), getNextCard()];
   
@@ -44,11 +45,11 @@ newGameButton.addEventListener('click', function() {
 // funkcja tworzaca talie 52 kart
 function createDeck() {
   let deck = [];
-  for (i=0; i<characters.length; i++) {
-    for (j=0; j<cards.length; j++) {
+  for (suitIdx=0; suitIdx<suits.length; suitIdx++) {
+    for (valueIdx=0; valueIdx<values.length; valueIdx++) {
       let card = {
-        suit: cards[j],
-        value: characters[i]
+        suit: suits[suitIdx],
+        value: values[valueIdx]
       };
       deck.push(card);
     };
@@ -56,9 +57,18 @@ function createDeck() {
   return deck;
 };
 
+function shuffleDeck(deck) {
+  for (i=0; i<deck.length; i++) {
+    let swapIdx = Math.trunc(Math.random() * deck.length);
+    let tmp = deck[swapIdx];
+    deck[swapIdx] = deck[i];
+    deck[i] = tmp;
+  }
+}
+
 // funkcja robiaca napis
 function getCardString(card) {
-  return card.suit + ' of ' + card.value;
+  return card.value + ' of ' + card.suit;
 };
 
 // pobierz kolejna karte
@@ -70,5 +80,8 @@ function showStatus() {
   if (!gameStarted) {
     textArea.innerText = 'Welcome to Blackjack!';
     return;
+  }
+  for (i=0; i<deck.length; i++) {
+    textArea.innerText += '\n' + getCardString(deck[i]);
   }
 };
