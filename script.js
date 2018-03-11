@@ -137,7 +137,36 @@ function updateScores() {
 }
 
 function checkGameOver() {
-  // TO DO
+  updateScores();
+  
+ if (gameOver) {
+    // let dealer take cards
+    while(dealerScore < playerScore
+          && playerScore <= 21
+          && dealerScore <= 21) {
+      dealerCards.push(getNextCard());
+      updateScores();
+    }
+  }
+  
+  
+  if (playerScore > 21) {
+    playerWon = false;
+    gameOver = true;
+  }
+  else if (dealerScore > 21) {
+    playerWon = true;
+    gameOver = true;
+  }
+  else if (gameOver) {
+    
+    if (playerScore > dealerScore) {
+      playerWon = true;
+    }
+    else {
+      playerWon = false;
+    }
+  }
 };
 
 function showStatus() {
@@ -166,4 +195,16 @@ textArea.innerText =
   'Player has:\n' +
   playerCardString +
   '(score: ' + playerScore + ') \n \n';
+  
+if (gameOver) {
+  if (playerWon) {
+    textArea.innerText += "YOU WON!";
+  }
+  else {
+    textArea.innerText += "YOU LOST!";
+  }
+  newGameButton.style.display = 'inline';
+  hitButton.style.display = 'none' ;
+  stayButton.style.display = 'none';
+}
 };
