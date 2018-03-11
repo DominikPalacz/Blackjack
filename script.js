@@ -76,6 +76,52 @@ function getNextCard() {
   return deck.shift()
 };
 
+function getCardNumbericValue(card) {
+  switch(card.value) {
+    case 'Ace':
+    return 1;
+    case '2':
+    return 2;
+    case '3':
+    return 3;
+    case '4':
+    return 4;
+    case '5':
+    return 5;
+    case '6':
+    return 6;
+    case '7':
+    return 7;
+    case '8':
+    return 8;
+    case '9':
+    return 9;
+    default:
+    return 10;
+  }
+}
+
+function getScore(cardArray) {
+  let score = 0;
+  let hasAce = false;
+  for (i=0; i<cardArray.length; i++) {
+    let card = cardArray[i];
+    score += getCardNumbericValue(card);
+    if (card.value === "Ace") {
+      hasAce = true;
+    }
+  }
+  if (hasAce && score +10 <= 21) {
+    return score + 10;
+  }
+  return score;
+}
+
+function updateScores() {
+  dealerScore = getScore(dealerCards);
+  playerScore = getScore(playerCards);
+}
+
 function showStatus() {
   if (!gameStarted) {
     textArea.innerText = 'Welcome to Blackjack!';
@@ -91,6 +137,8 @@ function showStatus() {
   for ( i = 0; i < playerCards.length; i++) {
   playerCardString += getCardString(playerCards[i]) + '\n';
 }
+
+updateScores();
   
 textArea.innerText =
   'Deler has:\n' +
